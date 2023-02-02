@@ -64,7 +64,7 @@ describe('Users', () => {
       const updateUserDto: UpdateUserDto = UsersMock.update();
 
       return request(app.getHttpServer())
-        .put(`/users/e4c762b0-655c-43fd-b13e-eef09fe5da00`)
+        .put(`/users/1256`)
         .send(updateUserDto)
         .expect(404)
         .expect({
@@ -80,7 +80,7 @@ describe('Users', () => {
           email: 'john@email.com',
         },
       });
-      console.log(user);
+
       const updateUserDto: UpdateUserDto = UsersMock.update();
 
       return request(app.getHttpServer())

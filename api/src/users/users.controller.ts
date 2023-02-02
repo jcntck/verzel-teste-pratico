@@ -23,8 +23,8 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get('/:id')
-  findById(@Param('id') id: string): Promise<User | null> {
+  @Get(':id')
+  findById(@Param('id') id: number): Promise<User | null> {
     return this.usersService.findById(id);
   }
 
@@ -34,14 +34,14 @@ export class UsersController {
     return this.usersService.create(user);
   }
 
-  @Put('/:id')
+  @Put(':id')
   @UsePipes(ValidationPipe)
-  update(@Param('id') id: string, @Body() user: UpdateUserDto): Promise<void> {
+  update(@Param('id') id: number, @Body() user: UpdateUserDto): Promise<void> {
     return this.usersService.update(id, user);
   }
 
-  @Delete('/:id')
-  delete(@Param('id') id: string): Promise<void> {
+  @Delete(':id')
+  delete(@Param('id') id: number): Promise<void> {
     return this.usersService.delete(id);
   }
 }

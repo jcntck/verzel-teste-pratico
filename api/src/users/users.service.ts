@@ -24,7 +24,7 @@ export class UsersService {
     });
   }
 
-  async findById(id: string): Promise<User | null> {
+  async findById(id: number): Promise<User | null> {
     return this.userRepository.findOne({
       where: { id },
       select: selectFields,
@@ -48,7 +48,7 @@ export class UsersService {
     return this.userRepository.save(userDto);
   }
 
-  async update(id: string, userDto: UpdateUserDto): Promise<void> {
+  async update(id: number, userDto: UpdateUserDto): Promise<void> {
     const user = await this.findByEmail(userDto.email);
     if (user && user.id !== id)
       throw new BadRequestException('user already exists with this email');
@@ -61,7 +61,7 @@ export class UsersService {
     if (!response.affected) throw new NotFoundException('user not found');
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.userRepository.delete(id);
   }
 }

@@ -12,7 +12,7 @@ import {
 @Unique(['email'])
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
-  id: string;
+  id: number;
 
   @Column({ nullable: false, type: 'varchar', length: 200 })
   name: string;
