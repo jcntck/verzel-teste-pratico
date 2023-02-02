@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 import { PostgresTypeOrmConfigFactory } from '../src/config/postgres-typeorm.config';
 import { CreateUserDto } from '../src/users/dto/create-user.dto';
 import { UpdateUserDto } from '../src/users/dto/update-user.dto';
-import { User } from '../src/users/user.entity';
+import { User } from '../src/users/entities/user.entity';
 import { UsersModule } from '../src/users/users.module';
 import { UsersMock } from './mocks/users.mock';
 
