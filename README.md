@@ -6,7 +6,7 @@ Teste com proposta de validar os conhecimentos técnicos em desenvolvimento fron
 
 1. [Objetivo](#objetivo)
 2. [Tecnologias utilizadas](#tecnologias-utilizadas)
-3. [Pré-requisitos para executar este projeto](#pre-requisitos-para-executar-este-projeto)
+3. [Pré-requisitos para executar este projeto](#pré-requisitos-para-executar-este-projeto)
 
 ## Objetivo
 
