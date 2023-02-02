@@ -7,10 +7,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { IUser } from './user.interface';
 
 @Entity('users')
 @Unique(['email'])
-export class User extends BaseEntity {
+export class User extends BaseEntity implements IUser {
   @PrimaryGeneratedColumn('increment')
   id: number;
 

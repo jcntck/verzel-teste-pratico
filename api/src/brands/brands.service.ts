@@ -17,7 +17,7 @@ export class BrandsService {
     return this.brandsRepository.find();
   }
 
-  findById(id: number): Promise<Brand | null> {
+  async findById(id: number): Promise<Brand | null> {
     return this.brandsRepository.findOne({
       where: {
         id,

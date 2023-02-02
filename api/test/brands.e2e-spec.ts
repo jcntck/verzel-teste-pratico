@@ -13,7 +13,7 @@ import { BrandsMock } from './mocks/brands.mock';
 
 describe('Brands', () => {
   let app: INestApplication;
-  let repository: Repository<Brand>;
+  let brandRepository: Repository<Brand>;
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
@@ -31,7 +31,7 @@ describe('Brands', () => {
     app = module.createNestApplication();
     await app.init();
 
-    repository = module.get('BrandRepository');
+    brandRepository = module.get('BrandRepository');
   });
 
   describe('/POST Brands', () => {
@@ -75,9 +75,9 @@ describe('Brands', () => {
     });
 
     it('deve atualizar as informações da marca', async () => {
-      const brand = <Brand>await repository.findOne({
+      const brand = <Brand>await brandRepository.findOne({
         where: {
-          name: 'Volkswagen',
+          name: BrandsMock.CREATE_NAME,
         },
       });
 
@@ -93,7 +93,7 @@ describe('Brands', () => {
       const createBrandDto: CreateBrandDto = BrandsMock.create();
       const updateBrandDto: UpdateBrandDto = BrandsMock.update();
 
-      const brand = await repository.save(createBrandDto);
+      const brand = await brandRepository.save(createBrandDto);
 
       return request(app.getHttpServer())
         .put(`/brands/${brand.id}`)
@@ -109,9 +109,9 @@ describe('Brands', () => {
 
   describe('/PATCH Brands', () => {
     it('deve atualizar o caminho do icone da marca com sucesso', async () => {
-      const brand = <Brand>await repository.findOne({
+      const brand = <Brand>await brandRepository.findOne({
         where: {
-          name: 'Volkswagen',
+          name: BrandsMock.CREATE_NAME,
         },
       });
       const iconPath = BrandsMock.setIconPath();
@@ -123,9 +123,9 @@ describe('Brands', () => {
     });
 
     it('deve remover o caminho do icone da marca com sucesso', async () => {
-      const brand = <Brand>await repository.findOne({
+      const brand = <Brand>await brandRepository.findOne({
         where: {
-          name: 'Volkswagen',
+          name: BrandsMock.CREATE_NAME,
         },
       });
       const iconPath = BrandsMock.removeIconPath();
@@ -146,9 +146,9 @@ describe('Brands', () => {
     });
 
     it('deve retornar uma marca pelo pelo id', async () => {
-      const user = <Brand>await repository.findOne({
+      const user = <Brand>await brandRepository.findOne({
         where: {
-          name: 'Fiat',
+          name: BrandsMock.UPDATE_NAME,
         },
       });
 
@@ -161,9 +161,9 @@ describe('Brands', () => {
 
   describe('/DELETE Brands', () => {
     it('deve remover uma marca', async () => {
-      const brand = <Brand>await repository.findOne({
+      const brand = <Brand>await brandRepository.findOne({
         where: {
-          name: 'Fiat',
+          name: BrandsMock.UPDATE_NAME,
         },
       });
 
@@ -174,7 +174,9 @@ describe('Brands', () => {
   });
 
   afterAll(async () => {
-    await repository.query("DELETE FROM brands WHERE name = 'Volkswagen'");
+    await brandRepository.query(
+      `DELETE FROM brands WHERE name = '${BrandsMock.CREATE_NAME}'`,
+    );
     await app.close();
   });
 });

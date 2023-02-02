@@ -6,15 +6,18 @@ type IconPath = {
 };
 
 export class BrandsMock {
+  static CREATE_NAME: string = 'Brand Test';
+  static UPDATE_NAME: string = 'Brand Test 1';
+
   static create(): CreateBrandDto {
     return {
-      name: 'Volkswagen',
+      name: BrandsMock.CREATE_NAME,
     };
   }
 
   static update(): UpdateBrandDto {
     return {
-      name: 'Fiat',
+      name: BrandsMock.UPDATE_NAME,
     };
   }
 

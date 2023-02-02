@@ -77,7 +77,7 @@ describe('Users', () => {
     it('deve atualizar as informações do usuário', async () => {
       const user = <User>await repository.findOne({
         where: {
-          email: 'john@email.com',
+          email: UsersMock.CREATE_EMAIL,
         },
       });
 
@@ -118,7 +118,7 @@ describe('Users', () => {
     it('deve retornar um usuário pelo id', async () => {
       const user = <User>await repository.findOne({
         where: {
-          email: 'john@email.com',
+          email: UsersMock.CREATE_EMAIL,
         },
       });
 
@@ -133,7 +133,7 @@ describe('Users', () => {
     it('deve remover um usuário', async () => {
       const user = <User>await repository.findOne({
         where: {
-          email: 'john_updated@email.com',
+          email: UsersMock.UPDATE_EMAIL,
         },
       });
 
@@ -144,7 +144,9 @@ describe('Users', () => {
   });
 
   afterAll(async () => {
-    await repository.query("DELETE FROM users WHERE email = 'john@email.com'");
+    await repository.query(
+      `DELETE FROM users WHERE email = '${UsersMock.CREATE_EMAIL}'`,
+    );
     await app.close();
   });
 });

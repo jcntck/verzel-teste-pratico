@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm/dist';
 import { BrandsModule } from './brands/brands.module';
 import { PostgresTypeOrmConfigFactory } from './config/postgres-typeorm.config';
 import { UsersModule } from './users/users.module';
+import { VehiclesModule } from './vehicles/vehicles.module';
+import { ModelsModule } from './models/models.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { UsersModule } from './users/users.module';
     }),
     UsersModule,
     BrandsModule,
+    VehiclesModule,
+    ModelsModule,
   ],
   controllers: [],
   providers: [],
