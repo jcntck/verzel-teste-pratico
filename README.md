@@ -24,7 +24,13 @@ Desenvolver um sistema como um catálogo de veículos a venda.
 
 ## Como executar
 
-Após clonar o projeto, rodar o comando:
+Para subir apenas o banco de dados:
+
+```sh
+docker compose -f docker-compose.db.yml up
+```
+
+Para subir o projeto completo:
 
 ```sh
 docker compose up
