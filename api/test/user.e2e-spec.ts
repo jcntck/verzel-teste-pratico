@@ -4,6 +4,7 @@ import { Test } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 import { Repository } from 'typeorm';
+import { PostgresTypeOrmConfigFactory } from '../src/config/postgres-typeorm.config';
 import { CreateUserDto } from '../src/users/dto/create-user.dto';
 import { UpdateUserDto } from '../src/users/dto/update-user.dto';
 import { User } from '../src/users/user.entity';
@@ -21,16 +22,7 @@ describe('Users', () => {
         ConfigModule.forRoot(),
         TypeOrmModule.forRootAsync({
           imports: [ConfigModule],
-          useFactory: async (configService: ConfigService) => ({
-            type: 'postgres',
-            host: configService.get('DB_HOST'),
-            port: configService.get('DB_PORT'),
-            username: configService.get('DB_USERNAME'),
-            password: configService.get('DB_PASSWORD'),
-            database: configService.get('DB_NAME'),
-            entities: ['./**/*.entity.ts'],
-            synchronize: true,
-          }),
+          useFactory: PostgresTypeOrmConfigFactory,
           inject: [ConfigService],
         }),
       ],

@@ -11,7 +11,7 @@ import {
 @Entity('users')
 @Unique(['email'])
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column({ nullable: false, type: 'varchar', length: 200 })
