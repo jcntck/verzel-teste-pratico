@@ -9,5 +9,6 @@ import { Model } from './entities/model.entity';
   imports: [TypeOrmModule.forFeature([Model]), BrandsModule],
   controllers: [ModelsController],
   providers: [ModelsService],
+  exports: [ModelsService],
 })
 export class ModelsModule {}

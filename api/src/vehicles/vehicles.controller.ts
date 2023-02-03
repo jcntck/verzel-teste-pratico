@@ -1,34 +1,50 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { VehiclesService } from './vehicles.service';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
+import { Vehicle } from './entities/vehicle.entity';
 
 @Controller('vehicles')
 export class VehiclesController {
   constructor(private readonly vehiclesService: VehiclesService) {}
 
-  @Post()
-  create(@Body() createVehicleDto: CreateVehicleDto) {
-    return this.vehiclesService.create(createVehicleDto);
-  }
-
   @Get()
-  findAll() {
+  findAll(): Promise<Vehicle[]> {
     return this.vehiclesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.vehiclesService.findOne(+id);
+  findById(@Param('id') id: number): Promise<Vehicle | null> {
+    return this.vehiclesService.findById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVehicleDto: UpdateVehicleDto) {
-    return this.vehiclesService.update(+id, updateVehicleDto);
+  @Post()
+  @UsePipes(ValidationPipe)
+  create(@Body() createVehicleDto: CreateVehicleDto): Promise<Vehicle> {
+    return this.vehiclesService.create(createVehicleDto);
+  }
+
+  @Put(':id')
+  @UsePipes(ValidationPipe)
+  update(
+    @Param('id') id: number,
+    @Body() updateVehicleDto: UpdateVehicleDto,
+  ): Promise<void> {
+    return this.vehiclesService.update(id, updateVehicleDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.vehiclesService.remove(+id);
+  remove(@Param('id') id: number): Promise<void> {
+    return this.vehiclesService.remove(id);
   }
 }

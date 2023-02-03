@@ -33,8 +33,8 @@ describe('Models', () => {
     app = module.createNestApplication();
     await app.init();
 
-    modelRepository = module.get('ModelRepository');
     brandRepository = module.get('BrandRepository');
+    modelRepository = module.get('ModelRepository');
 
     const brands = await brandRepository.save([
       { name: 'Volkswagen Test' },
