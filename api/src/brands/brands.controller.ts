@@ -9,13 +9,16 @@ import {
   Put,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { BrandsService } from './brands.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
 import { Brand } from './entities/brand.entity';
 
-@Controller('brands')
+@Controller('api/v1/brands')
+@UseGuards(JwtAuthGuard)
 export class BrandsController {
   constructor(private readonly brandsService: BrandsService) {}
 

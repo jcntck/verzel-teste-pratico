@@ -8,13 +8,16 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ModelsService } from './models.service';
 import { CreateModelDto } from './dto/create-model.dto';
 import { UpdateModelDto } from './dto/update-model.dto';
 import { Model } from './entities/model.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
-@Controller('models')
+@Controller('api/v1/models')
+@UseGuards(JwtAuthGuard)
 export class ModelsController {
   constructor(private readonly modelsService: ModelsService) {}
 

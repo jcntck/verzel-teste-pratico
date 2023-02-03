@@ -4,22 +4,29 @@ import { Test } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 import { Repository } from 'typeorm';
-import { Brand } from '../src/brands/entities/brand.entity';
-import { PostgresTypeOrmConfigFactory } from '../src/config/postgres-typeorm.config';
-import { CreateModelDto } from '../src/models/dto/create-model.dto';
-import { UpdateModelDto } from '../src/models/dto/update-model.dto';
-import { Model } from '../src/models/entities/model.entity';
-import { ModelsModule } from '../src/models/models.module';
-import { ModelsMock } from './mocks/models.mock';
+import { AuthModule } from '../../src/auth/auth.module';
+import { AuthService } from '../../src/auth/auth.service';
+import { Brand } from '../../src/brands/entities/brand.entity';
+import { PostgresTypeOrmConfigFactory } from '../../src/config/postgres-typeorm.config';
+import { CreateModelDto } from '../../src/models/dto/create-model.dto';
+import { UpdateModelDto } from '../../src/models/dto/update-model.dto';
+import { Model } from '../../src/models/entities/model.entity';
+import { ModelsModule } from '../../src/models/models.module';
+import { User } from '../../src/users/entities/user.entity';
+import { ModelsMock } from '../mocks/models.mock';
 
-describe('Models', () => {
+export default () => {
   let app: INestApplication;
   let modelRepository: Repository<Model>;
   let brandRepository: Repository<Brand>;
+  let userRepository: Repository<User>;
+  let authService: AuthService;
+  let access_token: string;
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
       imports: [
+        AuthModule,
         ModelsModule,
         ConfigModule.forRoot(),
         TypeOrmModule.forRootAsync({
@@ -37,12 +44,24 @@ describe('Models', () => {
     modelRepository = module.get('ModelRepository');
 
     const brands = await brandRepository.save([
-      { name: 'Volkswagen Test' },
-      { name: 'Fiat Test' },
+      { name: 'Volkswagen Models Test' },
+      { name: 'Fiat Models Test' },
     ]);
 
     ModelsMock.CREATE_BRANDID = brands[0].id;
     ModelsMock.UPDATE_BRANDID = brands[1].id;
+
+    userRepository = module.get('UserRepository');
+    authService = module.get<AuthService>(AuthService);
+
+    const admin = await userRepository.save({
+      name: 'Admin Test E2E',
+      email: 'admin_test@e2e.com',
+      password: 'admin_password',
+    });
+
+    const response = await authService.login(admin);
+    access_token = response.access_token;
   });
 
   describe('/POST Models', () => {
@@ -50,7 +69,8 @@ describe('Models', () => {
       const createModelDto: CreateModelDto = ModelsMock.create();
 
       return request(app.getHttpServer())
-        .post('/models')
+        .post('/api/v1/models')
+        .set('Authorization', `Bearer ${access_token}`)
         .send(createModelDto)
         .expect(201);
     });
@@ -59,7 +79,8 @@ describe('Models', () => {
       const createModelDto: CreateModelDto = ModelsMock.create();
 
       return request(app.getHttpServer())
-        .post('/models')
+        .post('/api/v1/models')
+        .set('Authorization', `Bearer ${access_token}`)
         .send(createModelDto)
         .expect(400)
         .expect({
@@ -74,7 +95,8 @@ describe('Models', () => {
       createModelDto.brandId = 50;
 
       return request(app.getHttpServer())
-        .post('/models')
+        .post('/api/v1/models')
+        .set('Authorization', `Bearer ${access_token}`)
         .send(createModelDto)
         .expect(404)
         .expect({
@@ -89,7 +111,8 @@ describe('Models', () => {
     it('deve retornar erro de modelo não encontrado', () => {
       const updateModelDto: UpdateModelDto = ModelsMock.update();
       return request(app.getHttpServer())
-        .put(`/models/1256`)
+        .put(`/api/v1/models/1256`)
+        .set('Authorization', `Bearer ${access_token}`)
         .send(updateModelDto)
         .expect(404)
         .expect({
@@ -110,7 +133,8 @@ describe('Models', () => {
       });
 
       return request(app.getHttpServer())
-        .put(`/models/${model.id}`)
+        .put(`/api/v1/models/${model.id}`)
+        .set('Authorization', `Bearer ${access_token}`)
         .send(updateModelDto)
         .expect(404)
         .expect({
@@ -130,7 +154,8 @@ describe('Models', () => {
       });
 
       return request(app.getHttpServer())
-        .put(`/models/${model.id}`)
+        .put(`/api/v1/models/${model.id}`)
+        .set('Authorization', `Bearer ${access_token}`)
         .send(updateModelDto)
         .expect(200);
     });
@@ -139,7 +164,8 @@ describe('Models', () => {
   describe('/GET Models', () => {
     it('deve retornar uma lista de modelos', async () => {
       return request(app.getHttpServer())
-        .get('/models')
+        .get('/api/v1/models')
+        .set('Authorization', `Bearer ${access_token}`)
         .expect('Content-Type', /json/)
         .expect(200);
     });
@@ -152,7 +178,8 @@ describe('Models', () => {
       });
 
       return request(app.getHttpServer())
-        .get(`/models/${model.id}`)
+        .get(`/api/v1/models/${model.id}`)
+        .set('Authorization', `Bearer ${access_token}`)
         .expect(200)
         .expect('Content-Type', /json/);
     });
@@ -167,15 +194,19 @@ describe('Models', () => {
       });
 
       return request(app.getHttpServer())
-        .delete(`/models/${model.id}`)
+        .delete(`/api/v1/models/${model.id}`)
+        .set('Authorization', `Bearer ${access_token}`)
         .expect(200);
     });
   });
 
   afterAll(async () => {
     await brandRepository.query(
-      "DELETE FROM brands WHERE name IN ('Volkswagen Test', 'Fiat Test')",
+      "DELETE FROM brands WHERE name IN ('Volkswagen Models Test', 'Fiat Models Test')",
+    );
+    await userRepository.query(
+      `DELETE FROM users WHERE email = 'admin_test@e2e.com'`,
     );
     await app.close();
   });
-});
+};

@@ -36,7 +36,6 @@ export class UsersService {
       where: {
         email,
       },
-      select: selectFields,
     });
   }
 
