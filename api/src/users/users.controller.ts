@@ -6,11 +6,14 @@ import {
   Param,
   Post,
   Put,
+  Patch,
+  HttpCode,
   UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -46,5 +49,24 @@ export class UsersController {
   @Delete(':id')
   delete(@Param('id') id: number): Promise<void> {
     return this.usersService.delete(id);
+  }
+
+  @Post(':id/check-password')
+  @HttpCode(200)
+  checkPassword(
+    @Param('id') id: number,
+    @Body('password') password: string,
+  ): Promise<boolean> {
+    return this.usersService.checkPassword(id, password);
+  }
+
+  @Patch(':id/change-password')
+  @UsePipes(ValidationPipe)
+  changePassword(
+    @Param('id') id: number,
+    @Body() changePasswordDto: ChangePasswordDto,
+  ): Promise<void> {
+    const { password } = changePasswordDto;
+    return this.usersService.updatePassword(id, password);
   }
 }

@@ -39,12 +39,24 @@ export class UsersService {
     });
   }
 
+  async checkPassword(id: number, password: string) {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) throw new NotFoundException('user not found');
+    return user.checkPassword(password);
+  }
+
   async create(userDto: CreateUserDto): Promise<User> {
     if (await this.findByEmail(userDto.email)) {
       throw new BadRequestException('user already exists with this email');
     }
 
-    return this.userRepository.save(userDto);
+    const newUser = new User();
+
+    newUser.name = userDto.name;
+    newUser.email = userDto.email;
+    await newUser.encryptPassword(userDto.password);
+
+    return this.userRepository.save(newUser);
   }
 
   async update(id: number, userDto: UpdateUserDto): Promise<void> {
@@ -58,6 +70,14 @@ export class UsersService {
     );
 
     if (!response.affected) throw new NotFoundException('user not found');
+  }
+
+  async updatePassword(id: number, password: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) throw new NotFoundException('user not found');
+
+    await user.encryptPassword(password);
+    await this.userRepository.save(user);
   }
 
   async delete(id: number): Promise<void> {

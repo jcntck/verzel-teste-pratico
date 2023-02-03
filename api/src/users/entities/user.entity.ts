@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { IUser } from './user.interface';
+import * as bcrypt from 'bcrypt';
 
 @Entity('users')
 @Unique(['email'])
@@ -29,4 +30,12 @@ export class User extends BaseEntity implements IUser {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  async encryptPassword(password: string): Promise<void> {
+    this.password = await bcrypt.hash(password, 10);
+  }
+
+  async checkPassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password);
+  }
 }
