@@ -2,3 +2,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: vazirmatn;
+  src: url("/assets/fonts/Vazirmatn-VariableFont_wght.ttf") format("truetype");
+}
+
+* {
+  font-family: "vazirmatn", "roboto";
+}

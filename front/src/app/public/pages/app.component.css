@@ -1,0 +1,7 @@
+.teste {
+  @apply flex items-center justify-between flex-wrap bg-white p-6;
+}
+
+.teste .text {
+  @apply flex items-center flex-shrink-0 text-black mr-6;
+}
