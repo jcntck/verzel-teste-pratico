@@ -1,5 +1,7 @@
 .navbar {
   @apply bg-white border-gray-200 rounded dark:bg-gray-900 m-0 shadow-md;
+  position: relative;
+  z-index: 10;
 }
 
 .navbar .navbar-container {
