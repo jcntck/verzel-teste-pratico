@@ -1,0 +1,21 @@
+.footer {
+  @apply bg-black text-white;
+}
+
+.footer .map {
+  @apply container mx-auto grid grid-cols-12 py-10;
+  border-bottom: 1px solid white;
+}
+
+.footer .rights {
+  @apply py-5 container mx-auto font-light;
+}
+
+.footer .rights a {
+  @apply underline;
+  font-size: 0.8rem;
+}
+
+.footer .rights a:hover {
+  @apply text-primary;
+}

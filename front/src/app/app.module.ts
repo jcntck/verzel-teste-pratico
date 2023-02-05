@@ -14,6 +14,7 @@ import { CarListComponent } from './public/components/car-list/car-list.componen
 import { CarListItemComponent } from './public/components/car-list/item/item.component';
 import { FilterOptionsComponent } from './public/components/filter-options/filter-options.component';
 import { PaginationComponent } from './public/components/pagination/pagination.component';
+import { FooterComponent } from './public/shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PaginationComponent } from './public/components/pagination/pagination.c
     CarListItemComponent,
     FilterOptionsComponent,
     PaginationComponent,
+    FooterComponent,
   ],
   imports: [BrowserModule],
   providers: [],
