@@ -1,0 +1,108 @@
+<div class="filter-options pb-4">
+  <ng-template [ngIf]="!isMobileScreen()" [ngIfElse]="mobileFilters">
+    <button class="show-filters" (click)="toggleSidebar()">
+      <div class="mr-2" style="width: 1rem">
+        <svg
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns="http://www.w3.org/2000/svg"
+          style="height: inherit; width: inherit"
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M405.335 832H618.67V725.335H405.335V832zM32 192v106.665h960V192H32zm160 373.335h640V458.67H192v106.665z"
+          ></path>
+        </svg>
+      </div>
+      {{ hiddenSidebar ? "Mostrar filtros" : "Ocultar filtros" }}
+    </button>
+    <button class="remove-filters">Remover filtros</button>
+  </ng-template>
+  <ng-template #mobileFilters>
+    <div class="col-span-12 mb-6 relative">
+      <button
+        class="p-2 border rounded-md bg-light font-medium text-primary"
+        (click)="toggleMobileFilterOptions()"
+      >
+        Marca e modelo
+      </button>
+    </div>
+    <div
+      class="mobile-filter"
+      [ngClass]="mobileFilterOptions ? 'flex' : 'hidden'"
+    >
+      <div class="mobile-filter-header">
+        <button style="width: 1.25rem" (click)="toggleMobileFilterOptions()">
+          <svg
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xmlns="http://www.w3.org/2000/svg"
+            style="height: inherit; width: inherit"
+            viewBox="0 0 1024 1024"
+            width="24"
+            height="24"
+          >
+            <path
+              d="M886.733 137.267c19.467 19.467 19.467 48.667 0 68.133L580.133 512l306.6 306.6c19.467 19.467 19.467 48.667 0 68.133s-48.667 19.467-68.133 0L512 580.133l-306.6 306.6c-19.467 19.467-48.667 19.467-68.133 0s-19.467-48.667 0-68.133l306.6-306.6-306.6-306.6c-19.467-19.467-19.467-48.667 0-68.133s48.667-19.467 68.133 0l306.6 306.6 306.6-306.6c19.467-19.467 48.667-19.467 68.133 0z"
+            ></path>
+          </svg>
+        </button>
+        <span>Filtros</span>
+        <button class="remove-filters">Remover filtros</button>
+      </div>
+      <div class="flex-grow">
+        <app-filter-sidebar-item
+          name="Marca e modelo"
+        ></app-filter-sidebar-item>
+      </div>
+      <button class="show-results" (click)="toggleMobileFilterOptions()">
+        Mostrar resultados
+      </button>
+    </div>
+  </ng-template>
+
+  <span class="results">0 Resultados</span>
+  <div class="dropdown" style="position: relative">
+    <button
+      id="dropwDownOrderItems"
+      class="flex items-center"
+      [ngClass]="!hiddenDropdown ? 'highlight' : ''"
+      (click)="toggleDropdown()"
+    >
+      <span class="mr-1 font-medium">Ordernar:</span>
+      <span class="mr-2 flex-grow text-primary font-medium text-left"
+        >Maior Preço</span
+      >
+      <div
+        style="width: 0.75rem"
+        [ngClass]="
+          hiddenDropdown ? 'dropdown-icon-close' : 'dropdown-icon-open'
+        "
+      >
+        <svg
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns="http://www.w3.org/2000/svg"
+          style="fill: #3374db; height: inherit; width: inherit"
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M343.99 973.406l434.849-424.964c19.767-19.767 19.767-49.415 0-69.181L343.99 54.297c-19.767-19.767-49.415-19.767-69.181 0l-29.648 29.648c-19.767 19.767-19.767 49.415 0 69.181l370.61 360.726-370.61 355.786c-19.767 19.767-19.767 49.415 0 69.181l29.648 34.591c19.767 14.824 49.415 14.824 69.181 0z"
+          ></path>
+        </svg>
+      </div>
+    </button>
+    <div
+      id="dropdownNavbar"
+      [ngClass]="hiddenDropdown ? 'hidden' : ''"
+      class="dropdown-menu"
+    >
+      <ul class="py-3 px-2" aria-labelledby="dropdownLargeButton">
+        <li class="px-1 dropdown-item active">
+          <a href="#" class="dropdown-link">Maior Preço</a>
+        </li>
+        <hr />
+        <li class="px-1 dropdown-item">
+          <a href="#" class="dropdown-link">Menor Preço</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,7 @@
     <img class="brand-icon" [src]="src" alt="Audi" />
     <span>{{ name }}</span>
   </div>
-  <div class="list-models" [ngClass]="hiddenModels ? 'hidden' : ''">
+  <div class="list-models" [ngClass]="hiddenModels ? 'hidden' : 'flex'">
     <button class="models" *ngFor="let model of models; index as i">
       {{ model }}
     </button>

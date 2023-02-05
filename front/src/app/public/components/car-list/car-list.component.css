@@ -1,0 +1,3 @@
+.car-list {
+  @apply flex flex-wrap;
+}

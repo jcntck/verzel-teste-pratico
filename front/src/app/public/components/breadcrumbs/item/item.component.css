@@ -1,0 +1,10 @@
+.breadcrumbs-button {
+  @apply flex items-center border text-primary rounded font-medium mr-2;
+  font-size: 0.87rem;
+  padding: 0.5rem;
+}
+
+.breadcrumbs-button:hover {
+  background-color: #e9e9e9;
+  border-color: #3374db;
+}

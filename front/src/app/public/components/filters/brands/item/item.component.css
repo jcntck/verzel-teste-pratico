@@ -17,7 +17,7 @@
 }
 
 .list-models {
-  @apply mb-8;
+  @apply mb-8 flex-wrap;
 }
 
 .models {

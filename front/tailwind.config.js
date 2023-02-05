@@ -4,7 +4,13 @@ const colors = require("tailwindcss/colors");
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        "car-1/2": "calc(50% - 0.5rem)",
+        "car-1/3": "calc(33.333333% - 0.5rem)",
+        "car-1/4": "calc(25% - 0.5rem)",
+      },
+    },
     screens: {
       sm: "576px",
       md: "768px",
@@ -25,6 +31,7 @@ module.exports = {
       ...colors,
       primary: "#3374db",
       text: "#333",
+      light: "#e9eef7",
     },
   },
   plugins: [],

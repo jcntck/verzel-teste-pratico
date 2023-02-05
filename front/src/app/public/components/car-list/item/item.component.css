@@ -1,0 +1,25 @@
+.card {
+  @apply border rounded-lg shadow-lg;
+  /* max-width: 250px; */
+}
+
+.card-header {
+  @apply border rounded-lg;
+}
+
+.card-header img {
+  width: 100%;
+}
+
+.card-body {
+  @apply py-2 px-4;
+}
+
+.card-body h2 {
+  @apply font-bold;
+}
+
+.card-body span {
+  @apply block mt-4 text-primary font-medium;
+  font-size: 1.2rem;
+}

@@ -1,0 +1,31 @@
+.double-arrow-button,
+.arrow-button {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.arrow-button {
+  @apply bg-black rounded-md flex justify-center items-center;
+  fill: white;
+}
+
+.pagination-button:disabled .arrow-button {
+  background-color: #ccc;
+}
+
+.pagination-button:disabled .double-arrow-button {
+  fill: #ccc;
+}
+
+.arrow-svg {
+  width: 1rem;
+}
+
+.double {
+  @apply absolute;
+  top: 0.7rem;
+}
+
+.left {
+  transform: scale(-1, 1);
+}

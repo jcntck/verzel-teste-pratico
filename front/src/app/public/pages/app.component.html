@@ -4,75 +4,17 @@
 </section>
 <section class="container mx-auto px-4 lg:px-0">
   <h1>Carros Usados</h1>
-  <div class="filter-options pb-4">
-    <button class="show-filters" (click)="toggleSidebar()">
-      <div class="mr-2" style="width: 1rem">
-        <svg
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xmlns="http://www.w3.org/2000/svg"
-          style="height: inherit; width: inherit"
-          viewBox="0 0 1024 1024"
-        >
-          <path
-            d="M405.335 832H618.67V725.335H405.335V832zM32 192v106.665h960V192H32zm160 373.335h640V458.67H192v106.665z"
-          ></path>
-        </svg>
-      </div>
-      {{ hiddenSidebar ? "Mostrar filtros" : "Ocultar filtros" }}
-    </button>
-    <button class="remove-filters">Remover filtros</button>
-
-    <span class="results ml-4">0 Resultados</span>
-    <div class="dropdown col-span-8 justify-end" style="position: relative">
-      <button
-        id="dropwDownOrderItems"
-        class="flex items-center"
-        [ngClass]="!hiddenDropdown ? 'highlight' : ''"
-        (click)="toggleDropdown()"
-      >
-        <span class="mr-1 font-medium">Ordernar:</span>
-        <span class="mr-2 flex-grow text-primary font-medium text-left"
-          >Maior Preço</span
-        >
-        <div
-          style="width: 0.75rem"
-          [ngClass]="
-            hiddenDropdown ? 'dropdown-icon-close' : 'dropdown-icon-open'
-          "
-        >
-          <svg
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xmlns="http://www.w3.org/2000/svg"
-            style="fill: #3374db; height: inherit; width: inherit"
-            viewBox="0 0 1024 1024"
-          >
-            <path
-              d="M343.99 973.406l434.849-424.964c19.767-19.767 19.767-49.415 0-69.181L343.99 54.297c-19.767-19.767-49.415-19.767-69.181 0l-29.648 29.648c-19.767 19.767-19.767 49.415 0 69.181l370.61 360.726-370.61 355.786c-19.767 19.767-19.767 49.415 0 69.181l29.648 34.591c19.767 14.824 49.415 14.824 69.181 0z"
-            ></path>
-          </svg>
-        </div>
-      </button>
-      <div
-        id="dropdownNavbar"
-        [ngClass]="hiddenDropdown ? 'hidden' : ''"
-        class="dropdown-menu"
-      >
-        <ul class="py-3 px-2" aria-labelledby="dropdownLargeButton">
-          <li class="px-1 dropdown-item active">
-            <a href="#" class="dropdown-link">Maior Preço</a>
-          </li>
-          <hr />
-          <li class="px-1 dropdown-item">
-            <a href="#" class="dropdown-link">Menor Preço</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <app-filter-options
+    (toggleSidebarEvent)="setSidebarState($event)"
+  ></app-filter-options>
   <section class="grid grid-cols-12">
     <app-filter-sidebar
-      class="col-span-3"
-      [ngClass]="hiddenSidebar ? 'hidden' : ''"
+      [ngClass]="hiddenSidebar ? 'hidden' : 'col-span-3'"
     ></app-filter-sidebar>
+    <div [ngClass]="!hiddenSidebar ? 'col-span-9 lg:ml-4' : 'col-span-full'">
+      <app-breadcrumbs></app-breadcrumbs>
+      <app-car-list [expandGrid]="hiddenSidebar"></app-car-list>
+      <app-pagination></app-pagination>
+    </div>
   </section>
 </section>

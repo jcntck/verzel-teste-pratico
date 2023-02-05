@@ -6,14 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  public hiddenDropdown: boolean = true;
-  public hiddenSidebar: boolean = false;
+  public hiddenSidebar: boolean | undefined;
 
-  toggleDropdown() {
-    this.hiddenDropdown = !this.hiddenDropdown;
-  }
-
-  toggleSidebar() {
-    this.hiddenSidebar = !this.hiddenSidebar;
+  setSidebarState(hiddenSidebar: boolean) {
+    this.hiddenSidebar = hiddenSidebar;
   }
 }
