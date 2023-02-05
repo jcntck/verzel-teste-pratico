@@ -1,0 +1,38 @@
+.brand-info {
+  @apply flex;
+  padding: 12px;
+  margin: 4px 0;
+  cursor: pointer;
+}
+
+.brand-info:hover,
+.active {
+  @apply bg-primary text-white;
+  border-radius: 8px;
+}
+
+.brand-icon {
+  width: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.list-models {
+  @apply mb-8;
+}
+
+.models {
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  padding: 8px;
+  color: #5b5b5b;
+  margin: 4px;
+  line-height: 1.5;
+}
+
+.models:hover {
+  background-color: #c7c7c7;
+}
+
+.models:active {
+  @apply bg-primary text-white;
+}

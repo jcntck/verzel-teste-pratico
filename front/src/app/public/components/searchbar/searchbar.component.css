@@ -5,11 +5,12 @@
   font-size: 1rem;
   height: 3rem;
   border-radius: 0.5rem;
-  color: #333;
+  color: #d1d5db;
+  border: #d1d5db solid 1px;
 }
 
 .search-input:focus {
-  border: none;
+  border: #3374db solid 1px;
   outline: none;
 }
 
@@ -25,10 +26,9 @@
 
 .search-button {
   @apply absolute px-5 py-1;
-  /* position: absolute; */
-  right: 1rem;
-  height: 100%;
-  /* padding: 0.25rem; */
+  right: 1px;
+  top: 1px;
+  height: calc(100% - calc(1px + 1px));
   z-index: 1000;
   background-color: white;
   border-radius: 0.5rem;

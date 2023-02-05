@@ -1,0 +1,15 @@
+<div class="item-list">
+  <div
+    class="brand-info"
+    [ngClass]="!hiddenModels ? 'active' : ''"
+    (click)="toggleModels()"
+  >
+    <img class="brand-icon" [src]="src" alt="Audi" />
+    <span>{{ name }}</span>
+  </div>
+  <div class="list-models" [ngClass]="hiddenModels ? 'hidden' : ''">
+    <button class="models" *ngFor="let model of models; index as i">
+      {{ model }}
+    </button>
+  </div>
+</div>

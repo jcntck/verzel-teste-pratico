@@ -1,0 +1,25 @@
+<div class="accordion-item">
+  <h3 class="accordion-title" (click)="toggleAccordion()">
+    <span>{{ name }}</span>
+    <div
+      style="width: 1rem"
+      [ngClass]="
+        hiddenAccordion ? 'accordion-icon-close' : 'accordion-icon-open'
+      "
+    >
+      <svg
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns="http://www.w3.org/2000/svg"
+        style="fill: #3374db; height: inherit; width: inherit"
+        viewBox="0 0 1024 1024"
+      >
+        <path
+          d="M343.99 973.406l434.849-424.964c19.767-19.767 19.767-49.415 0-69.181L343.99 54.297c-19.767-19.767-49.415-19.767-69.181 0l-29.648 29.648c-19.767 19.767-19.767 49.415 0 69.181l370.61 360.726-370.61 355.786c-19.767 19.767-19.767 49.415 0 69.181l29.648 34.591c19.767 14.824 49.415 14.824 69.181 0z"
+        ></path>
+      </svg>
+    </div>
+  </h3>
+  <div class="accordion-body" [ngClass]="hiddenAccordion ? 'hidden' : ''">
+    <app-filter-brands></app-filter-brands>
+  </div>
+</div>
