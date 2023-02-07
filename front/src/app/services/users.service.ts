@@ -1,23 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { User } from '../models/user';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
-  private url = 'http://localhost:3000/api/v1/users';
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
-
-  constructor(private httpClient: HttpClient) {}
+export class UsersService extends ApiService {
+  private url = `${this.base_url}/users`;
 
   getUsers(
     search: string = '',

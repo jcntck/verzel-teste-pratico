@@ -19,9 +19,13 @@ import { AdminFormFields } from '../../components/form/interfaces/form.interface
 export class AdminUsersComponent extends DynamicAlertsComponent {
   public user = {} as User;
   public users: User[] | undefined;
+
+  public search: string = '';
   public total: number | undefined;
   public currentPage: number | undefined;
   public totalPages: number | undefined;
+  public limit: number = 10;
+  public skip: number = 0;
 
   public hiddenSidebar: boolean = false;
   public hiddenTable: boolean = false;
@@ -29,8 +33,6 @@ export class AdminUsersComponent extends DynamicAlertsComponent {
   public formTitle: string = 'Cadastro de usuário';
   public formType: FormTypes = FormTypes.CREATE;
   public hiddenForm: boolean = true;
-
-  public iconPath: string = '';
 
   public formFields: AdminFormFields[] = [];
 
@@ -137,18 +139,27 @@ export class AdminUsersComponent extends DynamicAlertsComponent {
   }
 
   onSearchUsers(event: any) {
-    this.getUsers(event.target.value);
+    this.search = event.target.value;
+    this.skip = 0;
+    this.getUsers(this.search);
   }
 
-  getUsers(search = '', skip = 0) {
+  updatePage(skip: number) {
+    this.skip = skip;
+    this.getUsers(this.search);
+  }
+
+  getUsers(search = '') {
     this.userService
-      .getUsers(search)
+      .getUsers(search, this.limit, this.skip)
       .subscribe((response: { result: User[]; total: number }) => {
         this.users = response.result;
         this.total = response.total;
-        this.currentPage = skip + 1;
+        this.currentPage = this.skip / this.limit + 1;
         this.totalPages =
-          response.total / 10 < 1 ? 1 : Math.floor(response.total / 10);
+          response.total / this.limit < 1
+            ? 1
+            : Math.ceil(response.total / this.limit);
       });
   }
 
@@ -224,7 +235,6 @@ export class AdminUsersComponent extends DynamicAlertsComponent {
   }
 
   handleUserErrors(httpErrorResponse: HttpErrorResponse) {
-    console.log(this);
     const { error } = httpErrorResponse;
     if (error.message == UserErrorMessages.REPEATED_EMAIL) {
       this.createAlert(AlertTypes.ERROR, 'Usuário com este e-mail já existe');

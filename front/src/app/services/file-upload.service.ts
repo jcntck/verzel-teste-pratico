@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FileUploadService {
-  public baseApiUrl = 'https://upload.uploadcare.com/base/';
-  public token = 'e4ad0fb1fc3e64a0bf5e';
+  public baseApiUrl = environment.UPLOADCARE_URL;
+  public token = environment.UPLOADCARE_PUB_KEY;
 
   constructor(private http: HttpClient) {}
 

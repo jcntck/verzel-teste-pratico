@@ -5,4 +5,11 @@ export interface AdminFormFields {
   value: any;
   placeholder?: string;
   required: boolean;
+  prefix?: string;
+  options?: any[];
+  baseOptions?: any[];
+  filteredOptions?: any[];
+  id?: number | null;
+  hiddenOptions?: boolean;
+  filterBy?: string;
 }

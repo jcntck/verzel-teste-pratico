@@ -30,6 +30,10 @@
   @apply my-6 lg:my-8;
 }
 
+.select {
+  @apply relative;
+}
+
 .form-container .form-body .form .fields .input-group .label {
   @apply text-gray-500 focus-within:text-primary;
 }
@@ -52,4 +56,52 @@
 
 .form-container .form-body .button-group .button {
   @apply block bg-primary text-white font-extralight w-full p-2 rounded-md;
+}
+
+.select-input {
+  @apply relative fill-gray-400 focus-within:fill-primary;
+}
+
+.select-input .svg {
+  @apply absolute top-3 right-3 w-5 fill-inherit transition-transform cursor-text;
+}
+
+.close-select-icon {
+  transform: rotate(90deg);
+}
+
+.open-select-icon {
+  transform: rotate(270deg);
+}
+
+.select-input .input:focus {
+  @apply rounded-b-none;
+}
+
+.options {
+  @apply absolute bg-white w-full border border-t-0 rounded-md rounded-t-none border-primary text-xl text-gray-500 font-light z-10;
+}
+
+.options .option {
+  @apply cursor-pointer p-3 hover:bg-gray-50 hover:text-primary hover:font-normal flex items-center;
+}
+
+.options .option .icon {
+  @apply mr-2 w-7 border rounded-md;
+}
+
+.label {
+  @apply text-gray-500 focus-within:text-primary;
+}
+
+.input {
+  @apply block border w-full rounded-md p-2 mt-2 text-gray-500 font-light focus:outline-none focus:border-primary placeholder:font-extralight focus:placeholder:text-primary placeholder:text-xl text-xl;
+}
+
+.input.invalid {
+  @apply border-red-600;
+}
+
+.invalid-text {
+  @apply text-red-600 text-sm mt-1 px-1;
 }

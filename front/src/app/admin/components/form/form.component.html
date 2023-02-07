@@ -26,54 +26,149 @@
     >
       <div class="fields">
         <div *ngFor="let field of formFields; index as i" class="input-group">
-          <label
-            [for]="field.name"
-            *ngIf="field.type != 'file'; else fileInput"
-            class="label"
+          <div
+            *ngIf="field.type == 'file'; else selectInput"
+            class="block lg:flex items-center"
           >
-            {{ field.label }}
-            <input
-              [type]="field.type"
-              [id]="field.name"
-              [name]="field.name"
-              class="input"
-              [ngClass]="{ invalid: f.submitted && !field.value }"
-              [placeholder]="field.placeholder"
-              [(ngModel)]="field.value"
-              [required]="field.required"
-            />
-          </label>
-          <ng-template #fileInput>
-            <div class="block lg:flex items-center">
-              <div
-                class="mx-auto lg:mx-0 lg:mr-2 border rounded-md shadow-sm"
-                style="width: 5.7rem"
-              >
-                <img
-                  class="w-full"
-                  [src]="
-                    field.value ? field.value : 'assets/images/no-photo.jpg'
-                  "
-                />
-              </div>
-              <label class="flex flex-col justify-between" for=""
-                ><span class="block label">{{ field.label }}</span>
-                <input
-                  type="file"
-                  name="{{ field.name + '_file' }}"
-                  id="{{ field.name + '_file' }}"
-                  (change)="uploadFile($event)"
-                  class="text-lg text-gray-700 mt-2 input"
-                />
-                <input
-                  type="text"
-                  [id]="field.name"
-                  [name]="field.name"
-                  [(ngModel)]="field.value"
-                  class="hidden"
-                />
-              </label>
+            <div
+              class="mx-auto lg:mx-0 lg:mr-2 border rounded-md shadow-sm"
+              style="width: 5.7rem"
+            >
+              <img
+                class="w-full"
+                [src]="field.value ? field.value : 'assets/images/no-photo.jpg'"
+              />
             </div>
+            <label class="flex flex-col justify-between" for=""
+              ><span class="block label">{{ field.label }}</span>
+              <input
+                type="file"
+                [name]="
+                  field.prefix
+                    ? field.prefix + '.' + field.name + '_file'
+                    : field.name + '_file'
+                "
+                [id]="
+                  field.prefix
+                    ? field.prefix + '.' + field.name + '_file'
+                    : field.name + '_file'
+                "
+                (change)="uploadFile($event)"
+                class="text-lg text-gray-700 mt-2 input"
+              />
+              <input
+                type="text"
+                [name]="
+                  field.prefix ? field.prefix + '.' + field.name : field.name
+                "
+                [id]="
+                  field.prefix ? field.prefix + '.' + field.name : field.name
+                "
+                [(ngModel)]="field.value"
+                class="hidden"
+              />
+            </label>
+          </div>
+          <ng-template #selectInput>
+            <div *ngIf="field.type == 'select'; else basicInput" class="select">
+              <label
+                [for]="
+                  field.prefix ? field.prefix + '.' + field.name : field.name
+                "
+                class="label"
+              >
+                {{ field.label }}
+                <div class="select-input">
+                  <input
+                    [type]="field.type"
+                    [id]="
+                      field.prefix
+                        ? field.prefix + '.' + field.name
+                        : field.name
+                    "
+                    [name]="
+                      field.prefix
+                        ? field.prefix + '.' + field.name
+                        : field.name
+                    "
+                    class="input"
+                    [ngClass]="{ invalid: f.submitted && !field.value }"
+                    [placeholder]="field.placeholder"
+                    [(ngModel)]="field.value"
+                    [required]="field.required"
+                    (click)="loadOptions($event)"
+                    (keyup)="searchResults($event)"
+                    (change)="checkValue($event)"
+                    list="field.prefix + '_options'"
+                    autocomplete="off"
+                  />
+                  <div
+                    class="svg"
+                    [ngClass]="
+                      !field.hiddenOptions
+                        ? 'open-select-icon'
+                        : 'close-select-icon'
+                    "
+                  >
+                    <svg
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlns="http://www.w3.org/2000/svg"
+                      style="fill: inherit; height: inherit; width: inherit"
+                      viewBox="0 0 1024 1024"
+                    >
+                      <path
+                        d="M343.99 973.406l434.849-424.964c19.767-19.767 19.767-49.415 0-69.181L343.99 54.297c-19.767-19.767-49.415-19.767-69.181 0l-29.648 29.648c-19.767 19.767-19.767 49.415 0 69.181l370.61 360.726-370.61 355.786c-19.767 19.767-19.767 49.415 0 69.181l29.648 34.591c19.767 14.824 49.415 14.824 69.181 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </label>
+              <datalist
+                class="options"
+                [id]="field.prefix + '_options'"
+                [ngClass]="!field.hiddenOptions ? 'block' : 'hidden'"
+              >
+                <option
+                  *ngFor="let option of field.filteredOptions; index as i"
+                  class="option"
+                  (click)="selectOption($event)"
+                >
+                  <span [id]="field.prefix + '.' + option.id">{{
+                    option.name
+                  }}</span>
+                </option>
+              </datalist>
+              <input
+                type="hidden"
+                [name]="field.prefix + '.id'"
+                [id]="field.prefix + '.id'"
+                [(ngModel)]="field.id"
+              />
+            </div>
+          </ng-template>
+          <ng-template #basicInput>
+            <label
+              [for]="
+                field.prefix ? field.prefix + '.' + field.name : field.name
+              "
+              class="label"
+            >
+              {{ field.label }}
+              <input
+                [type]="field.type"
+                [id]="
+                  field.prefix ? field.prefix + '.' + field.name : field.name
+                "
+                [name]="
+                  field.prefix ? field.prefix + '.' + field.name : field.name
+                "
+                class="input"
+                [ngClass]="{ invalid: f.submitted && !field.value }"
+                [placeholder]="field.placeholder"
+                [(ngModel)]="field.value"
+                [required]="field.required"
+              />
+            </label>
           </ng-template>
           <div
             *ngIf="f.submitted && field.required && !field.value"

@@ -4,9 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AdminAlertComponent } from './admin/components/alert/alert.component';
-import { AdminComponent } from './admin/pages/admin/admin.component';
 import { AlertDirective } from './admin/components/alert/alert.directive';
+import { AdminFormComponent } from './admin/components/form/form.component';
+import { AdminPaginationComponent } from './admin/components/pagination/pagination.component';
 import { AdminUsersComponent } from './admin/pages/users/users.component';
+import { AdminVehiclesComponent } from './admin/pages/vehicles/vehicles.component';
+import { AdminHeaderComponent } from './admin/shared/header/header.component';
+import { AdminSidebarComponent } from './admin/shared/sidebar/sidebar.component';
 import { AppComponent } from './app.component';
 import { BreadcrumbsComponent } from './public/components/breadcrumbs/breadcrumbs.component';
 import { BreadcrumbsItemComponent } from './public/components/breadcrumbs/item/item.component';
@@ -23,9 +27,6 @@ import { SearchbarComponent } from './public/components/searchbar/searchbar.comp
 import { HomeComponent } from './public/pages/home.component';
 import { FooterComponent } from './public/shared/footer/footer.component';
 import { NavbarComponent } from './public/shared/navbar/navbar.component';
-import { AdminHeaderComponent } from './admin/shared/header/header.component';
-import { AdminSidebarComponent } from './admin/shared/sidebar/sidebar.component';
-import { AdminFormComponent } from './admin/components/form/form.component';
 
 @NgModule({
   declarations: [
@@ -45,13 +46,14 @@ import { AdminFormComponent } from './admin/components/form/form.component';
     FilterOptionsComponent,
     PaginationComponent,
     FooterComponent,
-    AdminComponent,
     AdminUsersComponent,
     AdminFormComponent,
     AdminAlertComponent,
     AlertDirective,
     AdminHeaderComponent,
     AdminSidebarComponent,
+    AdminVehiclesComponent,
+    AdminPaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,8 +61,8 @@ import { AdminFormComponent } from './admin/components/form/form.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'admin', component: AdminComponent },
       { path: 'admin/usuarios', component: AdminUsersComponent },
+      { path: 'admin/veiculos', component: AdminVehiclesComponent },
     ]),
   ],
   providers: [],
