@@ -1,0 +1,9 @@
+.alert {
+  @apply flex justify-between items-center rounded-md shadow-md text-white fill-white font-medium max-h-20 transition-opacity my-3 p-5 lg:mx-2;
+}
+
+.fadeOut {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 150ms, opacity 150ms linear;
+}

@@ -1,0 +1,55 @@
+.form-container {
+  @apply bg-white rounded-lg shadow-md flex flex-col flex-grow my-3 p-3 lg:my-5 lg:p-5;
+}
+
+.form-container .form-header {
+  @apply flex items-center;
+}
+
+.form-container .form-header .back-button {
+  @apply p-2 fill-gray-400 hover:fill-primary;
+}
+
+.form-container .form-header .title {
+  @apply text-primary font-light flex-grow text-center uppercase text-xl lg:text-2xl;
+}
+
+.form-container .form-body {
+  @apply text-xl lg:text-2xl flex-grow;
+}
+
+.form-container .form-body .form {
+  @apply flex flex-col min-h-full;
+}
+
+.form-container .form-body .form .fields {
+  @apply flex-grow;
+}
+
+.form-container .form-body .form .fields .input-group {
+  @apply my-6 lg:my-8;
+}
+
+.form-container .form-body .form .fields .input-group .label {
+  @apply text-gray-500 focus-within:text-primary;
+}
+
+.form-container .form-body .form .fields .input-group .input {
+  @apply block border w-full rounded-md p-2 mt-2 text-gray-500 font-light focus:outline-none focus:border-primary placeholder:font-extralight focus:placeholder:text-primary placeholder:text-xl text-xl;
+}
+
+.form-container .form-body .form .fields .input-group .input.invalid {
+  @apply border-red-600;
+}
+
+.form-container .form-body .form .fields .input-group .invalid-text {
+  @apply text-red-600 text-sm mt-1 px-1;
+}
+
+.form-container .form-body .button-group {
+  @apply w-1/2 lg:w-3/12 ml-auto;
+}
+
+.form-container .form-body .button-group .button {
+  @apply block bg-primary text-white font-extralight w-full p-2 rounded-md;
+}

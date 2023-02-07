@@ -1,0 +1,91 @@
+<div class="form-container">
+  <div class="form-header">
+    <button class="back-button" title="Voltar" (click)="backPage()">
+      <div style="width: 1.2rem; transform: rotate(180deg)">
+        <svg
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns="http://www.w3.org/2000/svg"
+          style="fill: inherit; height: inherit; width: inherit"
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M343.99 973.406l434.849-424.964c19.767-19.767 19.767-49.415 0-69.181L343.99 54.297c-19.767-19.767-49.415-19.767-69.181 0l-29.648 29.648c-19.767 19.767-19.767 49.415 0 69.181l370.61 360.726-370.61 355.786c-19.767 19.767-19.767 49.415 0 69.181l29.648 34.591c19.767 14.824 49.415 14.824 69.181 0z"
+          ></path>
+        </svg>
+      </div>
+    </button>
+    <h2 class="title">{{ formTitle }}</h2>
+  </div>
+  <hr class="mt-5" />
+  <div class="form-body">
+    <form
+      class="form"
+      (ngSubmit)="f.form.valid && saveEntity(f)"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="fields">
+        <div *ngFor="let field of formFields; index as i" class="input-group">
+          <label
+            [for]="field.name"
+            *ngIf="field.type != 'file'; else fileInput"
+            class="label"
+          >
+            {{ field.label }}
+            <input
+              [type]="field.type"
+              [id]="field.name"
+              [name]="field.name"
+              class="input"
+              [ngClass]="{ invalid: f.submitted && !field.value }"
+              [placeholder]="field.placeholder"
+              [(ngModel)]="field.value"
+              [required]="field.required"
+            />
+          </label>
+          <ng-template #fileInput>
+            <div class="block lg:flex items-center">
+              <div
+                class="mx-auto lg:mx-0 lg:mr-2 border rounded-md shadow-sm"
+                style="width: 5.7rem"
+              >
+                <img
+                  class="w-full"
+                  [src]="
+                    field.value ? field.value : 'assets/images/no-photo.jpg'
+                  "
+                />
+              </div>
+              <label class="flex flex-col justify-between" for=""
+                ><span class="block label">{{ field.label }}</span>
+                <input
+                  type="file"
+                  name="{{ field.name + '_file' }}"
+                  id="{{ field.name + '_file' }}"
+                  (change)="uploadFile($event)"
+                  class="text-lg text-gray-700 mt-2 input"
+                />
+                <input
+                  type="text"
+                  [id]="field.name"
+                  [name]="field.name"
+                  [(ngModel)]="field.value"
+                  class="hidden"
+                />
+              </label>
+            </div>
+          </ng-template>
+          <div
+            *ngIf="f.submitted && field.required && !field.value"
+            class="invalid-text"
+          >
+            Este campo é obrigatório
+          </div>
+        </div>
+      </div>
+      <div class="button-group">
+        <button class="button">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>

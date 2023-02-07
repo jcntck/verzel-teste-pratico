@@ -27,12 +27,21 @@ module.exports = {
         "2xl": "1320px",
       },
     },
+    gridTemplateRows: {
+      "min-content": "min-content",
+      default: "initial",
+    },
     colors: {
       ...colors,
       primary: "#3374db",
       text: "#333",
       light: "#e9eef7",
     },
+  },
+  variants: {
+    // extend: {
+    //   scale: ["focus-within"],
+    // },
   },
   plugins: [],
 };

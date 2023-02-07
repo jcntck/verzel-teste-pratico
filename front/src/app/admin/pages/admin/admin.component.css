@@ -1,0 +1,31 @@
+.wrapper {
+  min-height: calc(100vh - 4rem);
+}
+
+.sidebar {
+  @apply bg-white shadow-lg w-full z-10 text-gray-700 font-light;
+}
+
+.sidebar.expanded {
+  @apply col-span-full fixed min-h-full lg:col-span-3 xl:col-span-2 lg:static;
+}
+
+.content {
+  @apply bg-gray-50 grid grid-cols-12 grid-rows-min-content lg:grid-rows-default lg:relative;
+}
+
+.content.wrapped {
+  @apply col-span-9 xl:col-span-10;
+}
+
+.content.expanded {
+  @apply col-span-full;
+}
+
+.area-alert {
+  @apply col-span-full sm:col-start-2 sm:col-end-12 md:col-start-3 md:col-end-11 lg:col-span-full lg:absolute lg:top-0 lg:right-0;
+}
+
+.content .form-area {
+  @apply flex-col col-span-full sm:col-start-2 sm:col-end-12 md:col-start-3 md:col-end-11 lg:col-start-3 lg:col-end-11 xl:col-start-4 xl:col-end-10;
+}
