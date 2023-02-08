@@ -45,6 +45,11 @@ docker compose up
 
 > **Obs:** _O uso do flag -d é ocultada para termos visualização dos logs de uma maneira mais prática_
 
+**Dados de acesso ao painel administrativo:**
+
+**E-mail:** admin@admin.com
+**Senha:** 123456
+
 ## URL
 
 - [API](http://localhost:3000/api/v1): http://localhost:3000/api/v1

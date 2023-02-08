@@ -35,6 +35,8 @@ INSERT INTO "brands" ("id", "name", "iconPath") VALUES
 	(32, 'Fiat', 'https://ucarecdn.com/82025bd3-b5fe-4df7-be75-f03efe94ff7b/');
 /*!40000 ALTER TABLE "brands" ENABLE KEYS */;
 
+ALTER SEQUENCE brands_id_seq RESTART WITH 42;
+
 -- Copiando estrutura para tabela public.models
 DROP TABLE IF EXISTS "models";
 CREATE TABLE IF NOT EXISTS "models" (
@@ -66,6 +68,8 @@ INSERT INTO "models" ("id", "name", "brandId") VALUES
 	(36, 'T-Cross', 41);
 /*!40000 ALTER TABLE "models" ENABLE KEYS */;
 
+ALTER SEQUENCE models_id_seq RESTART WITH 37;
+
 -- Copiando estrutura para tabela public.users
 DROP TABLE IF EXISTS "users";
 CREATE TABLE IF NOT EXISTS "users" (
@@ -80,11 +84,8 @@ CREATE TABLE IF NOT EXISTS "users" (
 
 -- Copiando dados para a tabela public.users: 1 rows
 /*!40000 ALTER TABLE "users" DISABLE KEYS */;
-INSERT INTO "users" ("id", "name", "email", "password", "createdAt", "updatedAt") VALUES
-	(1, 'John Foe', 'john-foe@email.com', 'password_hash', '2023-02-03 14:36:43.318522', '2023-02-03 14:36:43.318522'),
-	(69, 'John Foe II', 'john-foe-teste@email.com', '$2b$10$EIVrAkCYtExJxi3O7vArW.A/ApY0bUvs7IcJJdRP4gQ1Ko4HkVkIG', '2023-02-03 21:37:07.917749', '2023-02-06 23:47:01.203621'),
-	(71, 'Cassio Albergue I', 'cassio_albergue@email.com', '$2b$10$NrazPjLpd4EXFoIdXdfzxe3qouvHsolq6tf6nftahutRRUHzbJGmi', '2023-02-06 23:45:11.886664', '2023-02-07 20:44:55.605258'),
-	(74, 'João Neto', 'joao@teste.com', '$2b$10$v9L6hJ4Cv0WmEzD8z5YJg.SfG0VsFrOIledkH.oQ1wlzSCv0ENVKm', '2023-02-07 20:45:06.014667', '2023-02-07 20:45:06.014667');
+INSERT INTO "users" ("name", "email", "password", "createdAt", "updatedAt") VALUES
+	('Admin', 'admin@admin.com', '$2b$10$v9L6hJ4Cv0WmEzD8z5YJg.SfG0VsFrOIledkH.oQ1wlzSCv0ENVKm', '2023-02-07 20:45:06.014667', '2023-02-07 20:45:06.014667');
 /*!40000 ALTER TABLE "users" ENABLE KEYS */;
 
 -- Copiando estrutura para tabela public.vehicles
@@ -117,6 +118,8 @@ INSERT INTO "vehicles" ("id", "name", "photoPath", "modelId", "price") VALUES
 	(19, 'MPFI LT', 'https://ucarecdn.com/b0d3bc34-80fd-4b72-a973-ef39c5aeca2c/', 35, 58899),
 	(20, '200 TSI TOTAL AUTOMÁTICO', 'https://ucarecdn.com/1918c0c0-c6c0-49a5-810b-538ad84538c4/', 36, 109399);
 /*!40000 ALTER TABLE "vehicles" ENABLE KEYS */;
+
+ALTER SEQUENCE vehicles_id_seq RESTART WITH 21;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
