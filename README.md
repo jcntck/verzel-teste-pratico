@@ -6,7 +6,15 @@ Teste com proposta de validar os conhecimentos técnicos em desenvolvimento fron
 
 1. [Objetivo](#objetivo)
 2. [Tecnologias utilizadas](#tecnologias-utilizadas)
-3. [Pré-requisitos para executar este projeto](#pré-requisitos-para-executar-este-projeto)
+3. [Depedências externas](#depedências-externas)
+4. [Pré-requisitos para executar este projeto](#pré-requisitos-para-executar-este-projeto)
+5. [Como executar](#como-executar)
+6. [URL](#url)
+7. [Documentação](#documentação)
+   7.1. [Banco de dados](#banco-de-dados)
+   7.2. [API](#api)
+   7.3. [Frontend](#frontend)
+8. [Pontos a melhorar](#pontos-a-melhorar)
 
 ## Objetivo
 
