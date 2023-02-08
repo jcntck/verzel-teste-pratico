@@ -47,8 +47,9 @@ docker compose up
 
 **Dados de acesso ao painel administrativo:**
 
-**E-mail:** admin@admin.com
-**Senha:** 123456
+>**E-mail:** admin@admin.com
+
+>**Senha:** 123456
 
 ## URL
 
