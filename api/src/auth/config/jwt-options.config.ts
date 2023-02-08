@@ -6,6 +6,6 @@ export async function JwtOptionsFactory(
 ): Promise<JwtModuleOptions> {
   return {
     secret: configService.get('JWT_SECRET'),
-    signOptions: { expiresIn: '1800s' },
+    signOptions: { expiresIn: '3600s' },
   };
 }

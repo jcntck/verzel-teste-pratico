@@ -24,7 +24,7 @@ export class HomeComponent {
   public total: number | undefined;
   public currentPage: number | undefined;
   public totalPages: number | undefined;
-  public limit: number = 10;
+  public limit: number = 12;
   public skip: number = 0;
 
   constructor(

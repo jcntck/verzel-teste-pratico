@@ -14,7 +14,7 @@
     [total]="total"
   ></app-filter-options>
   <section class="grid grid-cols-12">
-    <div class="col-span-full">
+    <div class="col-span-full py-5" *ngIf="vehicles.length; else noResults">
       <app-car-list
         [expandGrid]="hiddenSidebar"
         [vehicles]="vehicles"
@@ -27,6 +27,22 @@
         (updateDataEvent)="updatePage($event)"
       ></app-pagination>
     </div>
+    <ng-template #noResults>
+      <section class="col-span-full flex flex-col items-center w-1/2 mx-auto">
+        <div class="w-1/5">
+          <img src="assets/images/no-results.svg" alt="" />
+        </div>
+        <span class="text-3xl font-medium my-2"
+          >Não encontramos o que você estava buscando</span
+        >
+        <span class="text-xl font-light mt-2 text-center text-gray-600"
+          >Existem inúmeras possibilidades no nosso catálogo.</span
+        >
+        <span class="text-xl font-light text-center text-gray-600"
+          >Altere os filtros e encontre outras opções.</span
+        >
+      </section>
+    </ng-template>
   </section>
 </section>
 <app-footer></app-footer>

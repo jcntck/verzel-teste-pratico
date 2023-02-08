@@ -12,6 +12,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist/decorators/api-use-tags.decorator';
 import { Query } from '@nestjs/common/decorators/http/route-params.decorator';
 import { QueryOptions } from 'src/interface/query-options.interface';
 import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
@@ -20,9 +21,12 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { FindAndCountResponse, UsersService } from './users.service';
+import { ApiBearerAuth } from '@nestjs/swagger/dist/decorators';
 
 @Controller('api/v1/users')
+@ApiTags('Users')
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

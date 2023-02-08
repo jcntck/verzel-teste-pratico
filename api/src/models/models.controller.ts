@@ -11,6 +11,8 @@ import {
   ValidationPipe,
   UseGuards,
 } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger/dist/decorators';
+import { ApiTags } from '@nestjs/swagger/dist/decorators/api-use-tags.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { QueryOptions } from 'src/interface/query-options.interface';
 import { CreateModelDto } from './dto/create-model.dto';
@@ -19,7 +21,9 @@ import { Model } from './entities/model.entity';
 import { FindAndCountResponse, ModelsService } from './models.service';
 
 @Controller('api/v1/models')
+@ApiTags('Models')
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class ModelsController {
   constructor(private readonly modelsService: ModelsService) {}
 
