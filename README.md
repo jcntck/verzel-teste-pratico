@@ -11,9 +11,9 @@ Teste com proposta de validar os conhecimentos técnicos em desenvolvimento fron
 5. [Como executar](#como-executar)
 6. [URL](#url)
 7. [Documentação](#documentação)
-   7.1. [Banco de dados](#banco-de-dados)
-   7.2. [API](#api)
-   7.3. [Frontend](#frontend)
+   1. [Banco de dados](#banco-de-dados)
+   2. [API](#api)
+   3. [Frontend](#frontend)
 8. [Pontos a melhorar](#pontos-a-melhorar)
 
 ## Objetivo
