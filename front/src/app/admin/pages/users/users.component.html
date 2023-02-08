@@ -20,39 +20,29 @@
       [ngClass]="hiddenForm ? 'hidden' : 'flex'"
     ></app-admin-form>
 
-    <div
-      class="bg-white rounded-lg shadowm-lg col-start-2 col-end-12 my-5 p-5 flex flex-col"
-      [ngClass]="{ hidden: hiddenTable }"
-    >
-      <div class="title">
-        <h2 class="text-primary font-semibold text-2xl">
-          Usuários cadastrados
-        </h2>
-        <hr class="mt-5" />
-      </div>
-      <div class="flex justify-between items-center">
-        <div class="w-1/2">
-          <button
-            class="bg-primary rounded-md py-2 px-3 font-light text-lg text-white fill-white shadow-sm flex items-center"
-            (click)="openUserForm()"
-          >
+    <div class="table-area" [ngClass]="hiddenTable ? 'hidden' : 'flex'">
+      <h2 class="title">Usuários cadastrados</h2>
+      <hr class="mt-3" />
+      <div class="table-options">
+        <div class="button-area">
+          <button class="create-button" (click)="openUserForm()">
             Cadastrar novo usuário
           </button>
         </div>
-        <div class="input-group w-1/2 ml-auto">
+        <div class="search-input-area">
           <input
             type="search"
             id="search"
             name="search"
-            class="block border w-full rounded-md p-2 my-4 text-gray-500 font-light focus:outline-none focus:border-primary placeholder:font-extralight focus:placeholder:text-primary placeholder:text-lg text-lg"
+            class="block border w-full rounded-md p-2 my-4 text-gray-500 font-light focus:outline-none focus:border-primary placeholder:font-extralight focus:placeholder:text-primary lg:placeholder:text-lg lg:text-lg"
             placeholder="Pesquise por nome ou e-mail do usuário ..."
             (keyup)="onSearchUsers($event)"
           />
         </div>
       </div>
-      <div class="mt-1 border rounded-md shadow-sm flex-grow">
-        <table class="table-fixed w-full text-lg">
-          <thead class="border-b text-left bg-gray-100 text-gray-700">
+      <div class="table-content">
+        <table class="table">
+          <thead class="table-head">
             <tr>
               <th class="p-3 font-normal w-1/12">ID</th>
               <th class="font-normal w-1/5">Nome</th>
@@ -61,10 +51,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              *ngFor="let user of users"
-              class="border-b hover:bg-gray-50 font-extralight"
-            >
+            <tr *ngFor="let user of users" class="tr-body">
               <td class="p-3">{{ user.id }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
@@ -154,10 +141,8 @@
           </tbody>
         </table>
       </div>
-      <div class="mt-3 flex justify-between items-center">
-        <span class="text-lg text-gray-600 uppercase font-light"
-          >{{ total }} resultados encontrados</span
-        >
+      <div class="pagination-area">
+        <span class="show-results">{{ total }} resultados encontrados</span>
         <app-admin-pagination
           [totalPages]="totalPages"
           [currentPage]="currentPage"

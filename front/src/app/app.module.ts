@@ -1,17 +1,26 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+
+// Admin
 import { AdminAlertComponent } from './admin/components/alert/alert.component';
 import { AlertDirective } from './admin/components/alert/alert.directive';
 import { AdminFormComponent } from './admin/components/form/form.component';
 import { AdminPaginationComponent } from './admin/components/pagination/pagination.component';
+import { AdminLoginComponent } from './admin/pages/login/login.component';
 import { AdminUsersComponent } from './admin/pages/users/users.component';
 import { AdminVehiclesComponent } from './admin/pages/vehicles/vehicles.component';
 import { AdminHeaderComponent } from './admin/shared/header/header.component';
 import { AdminSidebarComponent } from './admin/shared/sidebar/sidebar.component';
+
+// App
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+
+// Public
 import { BreadcrumbsComponent } from './public/components/breadcrumbs/breadcrumbs.component';
 import { BreadcrumbsItemComponent } from './public/components/breadcrumbs/item/item.component';
 import { CarListComponent } from './public/components/car-list/car-list.component';
@@ -52,31 +61,19 @@ import { NavbarComponent } from './public/shared/navbar/navbar.component';
     AdminSidebarComponent,
     AdminVehiclesComponent,
     AdminPaginationComponent,
+    AdminLoginComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        title: 'Carros Usados Kavak | Comprar Carros Usados no Brasil',
-        component: HomeComponent,
-      },
-      {
-        path: 'admin/usuarios',
-        title: 'Painel Administrativo - Usuários',
-        component: AdminUsersComponent,
-      },
-      {
-        path: 'admin/veiculos',
-        title: 'Painel Administrativo - Veículos',
-        component: AdminVehiclesComponent,
-      },
-      { path: '**', redirectTo: '/', pathMatch: 'full' },
-    ]),
+    ReactiveFormsModule,
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

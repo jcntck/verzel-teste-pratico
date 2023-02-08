@@ -29,3 +29,56 @@
 .content .form-area {
   @apply flex-col col-span-full sm:col-start-2 sm:col-end-12 md:col-start-3 md:col-end-11 lg:col-start-3 lg:col-end-11 xl:col-start-4 xl:col-end-10;
 }
+
+.table-area {
+  @apply bg-white rounded-lg shadow-lg my-3 p-3 flex-col col-span-full sm:col-start-2 sm:col-end-12 md:col-start-3 md:col-end-11;
+}
+
+.title {
+  @apply text-primary font-light text-center uppercase text-xl lg:text-2xl mt-1;
+}
+
+.table-options {
+  @apply block md:flex justify-between items-center mt-4;
+}
+
+.button-area {
+  @apply w-full md:w-1/2;
+}
+
+.create-button {
+  @apply bg-primary rounded-md py-2 px-3 font-light text-lg text-white fill-white shadow-sm block w-full md:w-auto lg:flex items-center;
+}
+
+.search-input-area {
+  @apply w-full md:w-1/2 md:ml-auto;
+}
+
+.table-content {
+  @apply mt-1 border rounded-md shadow-sm flex-grow overflow-x-auto;
+}
+
+.table {
+  @apply table-auto w-full text-lg;
+}
+
+.table-head {
+  @apply border-b text-left bg-gray-100 text-gray-700;
+}
+
+.tr-body {
+  @apply border-b hover:bg-gray-50 font-extralight;
+}
+
+.pagination-area {
+  @apply mt-3 flex flex-col lg:flex-row justify-between items-center;
+}
+
+.show-results {
+  @apply lg:text-lg text-gray-600 uppercase font-light;
+}
+
+td,
+th {
+  @apply whitespace-nowrap px-3;
+}
