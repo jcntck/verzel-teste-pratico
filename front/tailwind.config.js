@@ -38,10 +38,6 @@ module.exports = {
       light: "#e9eef7",
     },
   },
-  variants: {
-    // extend: {
-    //   scale: ["focus-within"],
-    // },
-  },
+  variants: {},
   plugins: [],
 };

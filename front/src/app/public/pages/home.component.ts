@@ -41,8 +41,9 @@ export class HomeComponent {
   }
 
   searchData(search: string) {
-    this.getVehicles(search, { sort: 'price', order: 'desc' });
-    console.log(this.brandsFilter);
+    this.search = search;
+    this.skip = 0;
+    this.getVehicles(search, this.sortOptions);
   }
 
   sortData(sortOptions: { sort: string; order: string }) {
