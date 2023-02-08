@@ -35,7 +35,7 @@ Após clonar o projeto, rodar o comando a seguir para subir as imagens do aplica
 docker compose up
 ```
 
-\*\*\*Obs:\*\* O uso do flag -d é ocultada para termos visualização dos logs de uma maneira mais prática\*
+> **Obs:** _O uso do flag -d é ocultada para termos visualização dos logs de uma maneira mais prática_
 
 ## URL
 
@@ -50,7 +50,9 @@ O banco de dados selecionado foi o banco de dados relacional Postgres, pois foi 
 
 - **Modelo Entidade-Relacionamento**:
 
-![Modelo ER](docs/banco-er.png)
+<div align="center">
+  <img src="docs/banco-er.png" alt="Model ER" width="500"/>
+</div>
 
 ### API
 
