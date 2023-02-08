@@ -19,7 +19,6 @@ import { CarListItemComponent } from './public/components/car-list/item/item.com
 import { FilterOptionsComponent } from './public/components/filter-options/filter-options.component';
 import { FilterBrandComponent } from './public/components/filters/brands/brands.component';
 import { FilterBrandItemComponent } from './public/components/filters/brands/item/item.component';
-import { FilterModelsComponent } from './public/components/filters/models/models.component';
 import { FilterSidebarItemComponent } from './public/components/filters/sidebar/item/item.component';
 import { FilterSidebarComponent } from './public/components/filters/sidebar/sidebar.component';
 import { PaginationComponent } from './public/components/pagination/pagination.component';
@@ -38,7 +37,6 @@ import { NavbarComponent } from './public/shared/navbar/navbar.component';
     FilterSidebarItemComponent,
     FilterBrandComponent,
     FilterBrandItemComponent,
-    FilterModelsComponent,
     BreadcrumbsComponent,
     BreadcrumbsItemComponent,
     CarListComponent,
@@ -60,9 +58,22 @@ import { NavbarComponent } from './public/shared/navbar/navbar.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'admin/usuarios', component: AdminUsersComponent },
-      { path: 'admin/veiculos', component: AdminVehiclesComponent },
+      {
+        path: '',
+        title: 'Carros Usados Kavak | Comprar Carros Usados no Brasil',
+        component: HomeComponent,
+      },
+      {
+        path: 'admin/usuarios',
+        title: 'Painel Administrativo - Usuários',
+        component: AdminUsersComponent,
+      },
+      {
+        path: 'admin/veiculos',
+        title: 'Painel Administrativo - Veículos',
+        component: AdminVehiclesComponent,
+      },
+      { path: '**', redirectTo: '/', pathMatch: 'full' },
     ]),
   ],
   providers: [],

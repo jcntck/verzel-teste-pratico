@@ -1,44 +1,50 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Post,
   Put,
+  Query,
   UsePipes,
   ValidationPipe,
   UseGuards,
 } from '@nestjs/common';
-import { VehiclesService } from './vehicles.service';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { QueryOptions } from 'src/interface/query-options.interface';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 import { Vehicle } from './entities/vehicle.entity';
-import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
+import { FindAndCountResponse, VehiclesService } from './vehicles.service';
 
 @Controller('api/v1/vehicles')
-@UseGuards(JwtAuthGuard)
 export class VehiclesController {
   constructor(private readonly vehiclesService: VehiclesService) {}
 
   @Get()
-  findAll(): Promise<Vehicle[]> {
-    return this.vehiclesService.findAll();
+  findAndCount(
+    @Query() queryOptions: QueryOptions,
+  ): Promise<FindAndCountResponse> {
+    return this.vehiclesService.findAndCount(queryOptions);
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   findById(@Param('id') id: number): Promise<Vehicle | null> {
     return this.vehiclesService.findById(id);
   }
 
   @Post()
   @UsePipes(ValidationPipe)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createVehicleDto: CreateVehicleDto): Promise<Vehicle> {
     return this.vehiclesService.create(createVehicleDto);
   }
 
   @Put(':id')
   @UsePipes(ValidationPipe)
+  @UseGuards(JwtAuthGuard)
   update(
     @Param('id') id: number,
     @Body() updateVehicleDto: UpdateVehicleDto,
@@ -47,6 +53,7 @@ export class VehiclesController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: number): Promise<void> {
     return this.vehiclesService.remove(id);
   }

@@ -4,4 +4,6 @@ export class CreateBrandDto {
   @IsNotEmpty()
   @IsString()
   name: string;
+
+  iconPath: string | null;
 }

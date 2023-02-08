@@ -14,7 +14,6 @@ import { IVehicle } from './../../vehicles/entities/vehicle.interface';
 import { IModel } from './model.interface';
 
 @Entity('models')
-@Unique(['name'])
 export class Model extends BaseEntity implements IModel {
   @PrimaryGeneratedColumn('increment')
   id: number;

@@ -5,7 +5,6 @@ export class CreateModelDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
   @IsNotEmpty()
   brandId: number;
 }

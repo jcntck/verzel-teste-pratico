@@ -1,20 +1,31 @@
 <app-navbar></app-navbar>
 <section class="bg-primary">
-  <app-searchbar placeholder="Busque por marca, modelo ..."></app-searchbar>
+  <app-searchbar
+    placeholder="Busque por marca, modelo ..."
+    [search]="search"
+    (searchResultsEvent)="searchData($event)"
+  ></app-searchbar>
 </section>
 <section class="container mx-auto px-4 lg:px-0 flex-grow">
   <h1>Carros Usados</h1>
   <app-filter-options
     (toggleSidebarEvent)="setSidebarState($event)"
+    (sortDataEvent)="sortData($event)"
+    [total]="total"
   ></app-filter-options>
   <section class="grid grid-cols-12">
-    <app-filter-sidebar
-      [ngClass]="hiddenSidebar ? 'hidden' : 'col-span-3'"
-    ></app-filter-sidebar>
-    <div [ngClass]="!hiddenSidebar ? 'col-span-9 lg:ml-4' : 'col-span-full'">
-      <app-breadcrumbs></app-breadcrumbs>
-      <app-car-list [expandGrid]="hiddenSidebar"></app-car-list>
-      <app-pagination></app-pagination>
+    <div class="col-span-full">
+      <app-car-list
+        [expandGrid]="hiddenSidebar"
+        [vehicles]="vehicles"
+      ></app-car-list>
+      <app-pagination
+        [totalPages]="totalPages"
+        [currentPage]="currentPage"
+        [limit]="limit"
+        [skip]="skip"
+        (updateDataEvent)="updatePage($event)"
+      ></app-pagination>
     </div>
   </section>
 </section>

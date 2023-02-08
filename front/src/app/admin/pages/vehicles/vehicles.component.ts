@@ -171,6 +171,14 @@ export class AdminVehiclesComponent extends DynamicAlertsComponent {
         })
         .pipe();
       return (await firstValueFrom(brand$)).id;
+    } else {
+      const brand$ = this.brandsService
+        .updateBrand(Number(value['brand.id']), {
+          name: value['brand.name'],
+          iconPath: value['brand.iconPath'],
+        })
+        .pipe();
+      await firstValueFrom(brand$);
     }
     return value['brand.id'];
   }

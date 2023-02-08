@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Brand } from 'src/app/models/brand';
+import { Model } from 'src/app/models/model';
 
 @Component({
   selector: 'app-filter-brands',
@@ -6,33 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./brands.component.css'],
 })
 export class FilterBrandComponent {
-  public audiModels = [
-    'A1',
-    'A3',
-    'A4',
-    'A5',
-    'A5',
-    'A6',
-    'Q3',
-    'Q5',
-    'Q7',
-    'Rs Q3',
-  ];
+  @Input() brands: Brand[] | undefined;
+  @Input() brandsFilter: any;
 
-  public bmwModels = [
-    '118i',
-    '120i',
-    '125i',
-    '320i',
-    '328i',
-    '535i',
-    '640i',
-    'M 135i',
-    'X1',
-    'X2',
-    'X3',
-    'X4',
-    'X5',
-    'X6',
-  ];
+  filterModels(brand: Brand): Model[] | undefined {
+    return brand.models?.filter((model) => model.vehicles?.length);
+  }
 }

@@ -13,13 +13,17 @@ export class VehiclesService extends ApiService {
   getVehicles(
     search: string = '',
     limit: number = 10,
-    skip: number = 0
+    skip: number = 0,
+    sort: string = '',
+    order: string = ''
   ): Observable<{ result: Vehicle[]; total: number }> {
     return this.httpClient.get<{ result: Vehicle[]; total: number }>(this.url, {
       params: {
         limit,
         skip,
         search,
+        sort,
+        order,
       },
     });
   }

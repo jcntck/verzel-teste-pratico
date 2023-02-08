@@ -1,5 +1,9 @@
-<div class="flex items-center justify-center my-5">
-  <button class="pagination-button" disabled>
+<div class="flex items-center justify-center my-2">
+  <button
+    class="pagination-button"
+    (click)="firstPage()"
+    [disabled]="isFirstPage()"
+  >
     <div class="double-arrow-button relative">
       <div class="arrow-svg left double" style="right: 1rem">
         <svg
@@ -27,7 +31,11 @@
       </div>
     </div>
   </button>
-  <button class="pagination-button" disabled>
+  <button
+    class="pagination-button"
+    (click)="prevPage()"
+    [disabled]="isFirstPage()"
+  >
     <div class="arrow-button">
       <div class="arrow-svg left">
         <svg
@@ -43,8 +51,12 @@
       </div>
     </div>
   </button>
-  <span class="mx-4 font-bold">0 de 0</span>
-  <button class="pagination-button">
+  <span class="mx-4 font-bold">{{ currentPage }} de {{ totalPages }}</span>
+  <button
+    class="pagination-button"
+    (click)="nextPage()"
+    [disabled]="isLastPage()"
+  >
     <div class="arrow-button">
       <div class="arrow-svg">
         <svg
@@ -60,7 +72,11 @@
       </div>
     </div>
   </button>
-  <button class="pagination-button">
+  <button
+    class="pagination-button"
+    (click)="lastPage()"
+    [disabled]="isLastPage()"
+  >
     <div class="double-arrow-button relative">
       <div class="arrow-svg double" style="right: 1rem">
         <svg

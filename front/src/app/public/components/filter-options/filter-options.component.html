@@ -1,5 +1,5 @@
 <div class="filter-options pb-4">
-  <ng-template [ngIf]="!isMobileScreen()" [ngIfElse]="mobileFilters">
+  <!-- <ng-template [ngIf]="!isMobileScreen()" [ngIfElse]="mobileFilters">
     <button class="show-filters" (click)="toggleSidebar()">
       <div class="mr-2" style="width: 1rem">
         <svg
@@ -57,9 +57,9 @@
         Mostrar resultados
       </button>
     </div>
-  </ng-template>
+  </ng-template> -->
 
-  <span class="results">0 Resultados</span>
+  <span class="results">{{ total }} Resultados</span>
   <div class="dropdown" style="position: relative">
     <button
       id="dropwDownOrderItems"
@@ -68,9 +68,9 @@
       (click)="toggleDropdown()"
     >
       <span class="mr-1 font-medium">Ordernar:</span>
-      <span class="mr-2 flex-grow text-primary font-medium text-left"
-        >Maior Preço</span
-      >
+      <span class="mr-2 flex-grow text-primary font-medium text-left">{{
+        selectedSort
+      }}</span>
       <div
         style="width: 0.75rem"
         [ngClass]="
@@ -95,12 +95,22 @@
       class="dropdown-menu"
     >
       <ul class="py-3 px-2" aria-labelledby="dropdownLargeButton">
-        <li class="px-1 dropdown-item active">
-          <a href="#" class="dropdown-link">Maior Preço</a>
+        <li
+          class="px-1 dropdown-item"
+          [ngClass]="selectedSort == 'Maior Preço' ? 'active' : ''"
+        >
+          <button (click)="sortByHighestPrice()" class="dropdown-link">
+            Maior Preço
+          </button>
         </li>
         <hr />
-        <li class="px-1 dropdown-item">
-          <a href="#" class="dropdown-link">Menor Preço</a>
+        <li
+          class="px-1 dropdown-item"
+          [ngClass]="selectedSort == 'Menor Preço' ? 'active' : ''"
+        >
+          <button (click)="sortByLowestPrice()" class="dropdown-link">
+            Menor Preço
+          </button>
         </li>
       </ul>
     </div>

@@ -1,6 +1,7 @@
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { QueryOptions } from 'src/interface/query-options.interface';
+import { Like, Repository, UpdateResult } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -13,15 +14,33 @@ const selectFields = {
   updatedAt: true,
 };
 
+export type FindAndCountResponse = {
+  result: User[];
+  total: number;
+};
+
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  async findAll(): Promise<User[]> {
-    return this.userRepository.find({
+  async findAndCount(query: QueryOptions): Promise<FindAndCountResponse> {
+    const take = query.limit || 10;
+    const skip = query.skip || 0;
+    const keyword = query.search || '';
+
+    const [result, total] = await this.userRepository.findAndCount({
+      where: [
+        { name: Like('%' + keyword + '%') },
+        { email: Like('%' + keyword + '%') },
+      ],
+      order: { id: 'desc' },
       select: selectFields,
+      take,
+      skip,
     });
+
+    return { result, total };
   }
 
   async findById(id: number): Promise<User | null> {
@@ -61,7 +80,8 @@ export class UsersService {
 
   async update(id: number, userDto: UpdateUserDto): Promise<void> {
     const user = await this.findByEmail(userDto.email);
-    if (user && user.id !== id)
+
+    if (user && user.id !== Number(id))
       throw new BadRequestException('user already exists with this email');
 
     const response: UpdateResult = await this.userRepository.update(

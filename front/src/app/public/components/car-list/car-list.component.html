@@ -1,7 +1,8 @@
 <section class="car-list gap-2">
   <app-car-list-item
-    *ngFor="let cars of fakeCars; index as i"
+    *ngFor="let vehicle of vehicles; index as i"
     class="w-full sm:w-car-1/2 md:w-car-1/3"
     [ngClass]="expandGrid ? 'lg:w-car-1/4' : ''"
+    [vehicle]="vehicle"
   ></app-car-list-item>
 </section>

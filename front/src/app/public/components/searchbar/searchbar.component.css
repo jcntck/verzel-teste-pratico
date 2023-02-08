@@ -1,11 +1,10 @@
 .search-input {
-  @apply placeholder-gray-500;
+  @apply placeholder-gray-500 text-gray-700;
   font-weight: 300;
   line-height: 1.5;
   font-size: 1rem;
   height: 3rem;
   border-radius: 0.5rem;
-  color: #d1d5db;
   border: #d1d5db solid 1px;
 }
 

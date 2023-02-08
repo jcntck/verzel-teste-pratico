@@ -5,7 +5,6 @@ export class UpdateModelDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
   @IsNotEmpty()
   brandId: number;
 }

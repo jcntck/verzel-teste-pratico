@@ -1,10 +1,16 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { QueryOptions } from 'src/interface/query-options.interface';
+import { Like, Repository } from 'typeorm';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
 import { Brand } from './entities/brand.entity';
+
+export type FindAndCountResponse = {
+  result: Brand[];
+  total: number;
+};
 
 @Injectable()
 export class BrandsService {
@@ -13,8 +19,29 @@ export class BrandsService {
     private readonly brandsRepository: Repository<Brand>,
   ) {}
 
+  async findAndCount(query: QueryOptions): Promise<FindAndCountResponse> {
+    const take = query.limit || 10;
+    const skip = query.skip || 0;
+    const keyword = query.search || '';
+
+    const [result, total] = await this.brandsRepository.findAndCount({
+      where: [{ name: Like('%' + keyword + '%') }],
+      order: { id: 'desc' },
+      take,
+      skip,
+    });
+
+    return { result, total };
+  }
+
   async findAll(): Promise<Brand[]> {
     return this.brandsRepository.find();
+  }
+
+  async findAllWithVehicles() {
+    return this.brandsRepository.find({
+      relations: { models: { vehicles: true } },
+    });
   }
 
   async findById(id: number): Promise<Brand | null> {
@@ -50,7 +77,7 @@ export class BrandsService {
 
   async update(id: number, updateBrandDto: UpdateBrandDto): Promise<void> {
     const brand = await this.findByName(updateBrandDto.name);
-    if (brand && brand.id !== id)
+    if (brand && brand.id != id)
       throw new BadRequestException('brand already exists with this name');
 
     const response = await this.brandsRepository.update(id, updateBrandDto);

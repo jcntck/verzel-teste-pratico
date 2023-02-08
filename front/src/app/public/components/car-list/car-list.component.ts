@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Vehicle } from 'src/app/models/vehicle';
 
 @Component({
   selector: 'app-car-list',
@@ -9,10 +10,5 @@ export class CarListComponent {
   public fakeCars: Number[] = [];
 
   @Input() expandGrid: boolean | undefined;
-
-  ngOnInit() {
-    for (let i = 0; i < 6; i++) {
-      this.fakeCars.push(i);
-    }
-  }
+  @Input() vehicles: Vehicle[] = [];
 }

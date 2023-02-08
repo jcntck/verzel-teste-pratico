@@ -20,6 +20,9 @@
     </div>
   </h3>
   <div class="accordion-body" [ngClass]="hiddenAccordion ? 'hidden' : ''">
-    <app-filter-brands></app-filter-brands>
+    <app-filter-brands
+      [brands]="brands"
+      [brandsFilter]="brandsFilter"
+    ></app-filter-brands>
   </div>
 </div>

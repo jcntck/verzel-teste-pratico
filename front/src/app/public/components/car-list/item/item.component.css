@@ -1,6 +1,5 @@
 .card {
-  @apply border rounded-lg shadow-lg;
-  /* max-width: 250px; */
+  @apply border rounded-lg shadow-lg h-full flex flex-col;
 }
 
 .card-header {
@@ -12,7 +11,7 @@
 }
 
 .card-body {
-  @apply py-2 px-4;
+  @apply py-2 px-4 flex flex-col justify-between flex-grow;
 }
 
 .card-body h2 {

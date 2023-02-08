@@ -4,12 +4,16 @@
     [ngClass]="!hiddenModels ? 'active' : ''"
     (click)="toggleModels()"
   >
-    <img class="brand-icon" [src]="src" alt="Audi" />
+    <img class="brand-icon" [src]="src" [alt]="name" />
     <span>{{ name }}</span>
   </div>
   <div class="list-models" [ngClass]="hiddenModels ? 'hidden' : 'flex'">
-    <button class="models" *ngFor="let model of models; index as i">
-      {{ model }}
+    <button
+      class="models"
+      *ngFor="let model of models; index as i"
+      (click)="filterByModel(model.id)"
+    >
+      {{ model.name }}
     </button>
   </div>
 </div>

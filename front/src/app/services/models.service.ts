@@ -21,7 +21,10 @@ export class ModelsService extends ApiService {
     );
   }
 
-  updateModel(id: number, model: Model): Observable<void> {
+  updateModel(
+    id: number,
+    model: { name: string; brandId: number }
+  ): Observable<void> {
     return this.httpClient.put<void>(
       `${this.url}/${id}`,
       JSON.stringify(model),

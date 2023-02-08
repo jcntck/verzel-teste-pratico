@@ -17,6 +17,9 @@ export class Vehicle extends BaseEntity implements IVehicle {
   @Column({ nullable: false })
   name: string;
 
+  @Column({ nullable: false })
+  price: number;
+
   @Column({ nullable: true })
   photoPath: string;
 

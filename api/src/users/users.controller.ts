@@ -12,12 +12,14 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { Query } from '@nestjs/common/decorators/http/route-params.decorator';
+import { QueryOptions } from 'src/interface/query-options.interface';
 import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { UsersService } from './users.service';
+import { FindAndCountResponse, UsersService } from './users.service';
 
 @Controller('api/v1/users')
 @UseGuards(JwtAuthGuard)
@@ -25,8 +27,10 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  findAndCount(
+    @Query() queryOptions: QueryOptions,
+  ): Promise<FindAndCountResponse> {
+    return this.usersService.findAndCount(queryOptions);
   }
 
   @Get(':id')
@@ -66,7 +70,7 @@ export class UsersController {
     @Param('id') id: number,
     @Body() changePasswordDto: ChangePasswordDto,
   ): Promise<void> {
-    const { password } = changePasswordDto;
-    return this.usersService.updatePassword(id, password);
+    const { newPassword } = changePasswordDto;
+    return this.usersService.updatePassword(id, newPassword);
   }
 }

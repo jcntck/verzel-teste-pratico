@@ -5,8 +5,10 @@ export class UpdateVehicleDto {
   @IsNotEmpty()
   name: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
+  price: number;
+
   photoPath: string;
 
   @IsNumber()

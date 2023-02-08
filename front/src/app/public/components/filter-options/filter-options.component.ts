@@ -1,4 +1,10 @@
-import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Output,
+  Input,
+} from '@angular/core';
 import { screenSizes } from 'src/app/contants/screenSizes.enum';
 
 @Component({
@@ -12,7 +18,11 @@ export class FilterOptionsComponent {
   public hiddenSidebar: boolean = false;
   public mobileFilterOptions: boolean = false;
 
+  public selectedSort: string = 'Maior Preço';
+
+  @Input() total: number | undefined = 0;
   @Output() toggleSidebarEvent = new EventEmitter<boolean>();
+  @Output() sortDataEvent = new EventEmitter<{ sort: string; order: string }>();
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
@@ -48,4 +58,21 @@ export class FilterOptionsComponent {
   toggleMobileFilterOptions() {
     this.mobileFilterOptions = !this.mobileFilterOptions;
   }
+
+  sortByHighestPrice() {
+    this.selectedSort = SortTypes.HIGHEST_PRICE;
+    this.sortDataEvent.emit({ sort: 'price', order: 'desc' });
+    this.toggleDropdown();
+  }
+
+  sortByLowestPrice() {
+    this.selectedSort = SortTypes.LOWEST_PRICE;
+    this.sortDataEvent.emit({ sort: 'price', order: 'asc' });
+    this.toggleDropdown();
+  }
+}
+
+enum SortTypes {
+  HIGHEST_PRICE = 'Maior Preço',
+  LOWEST_PRICE = 'Menor Preço',
 }

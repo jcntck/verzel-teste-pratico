@@ -4,4 +4,6 @@ export class UpdateBrandDto {
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  iconPath: string | null;
 }

@@ -5,9 +5,11 @@ export class CreateVehicleDto {
   @IsNotEmpty()
   name: string;
 
-  @IsString()
+  photoPath: string | undefined;
+
+  @IsNumber()
   @IsNotEmpty()
-  photoPath: string;
+  price: number;
 
   @IsNumber()
   @IsNotEmpty()

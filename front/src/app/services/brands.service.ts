@@ -13,6 +13,10 @@ export class BrandsService extends ApiService {
     return this.httpClient.get<Brand[]>(`${this.url}/all`);
   }
 
+  getBrandsWithVehicles(): Observable<Brand[]> {
+    return this.httpClient.get<Brand[]>(`${this.url}/all/vehicles`);
+  }
+
   createBrand(brand: { name: string; iconPath: string }): Observable<Brand> {
     return this.httpClient.post<Brand>(
       this.url,
@@ -21,7 +25,10 @@ export class BrandsService extends ApiService {
     );
   }
 
-  updateBrand(id: number, brand: Brand): Observable<void> {
+  updateBrand(
+    id: number,
+    brand: { name: string; iconPath: string }
+  ): Observable<void> {
     return this.httpClient.put<void>(
       `${this.url}/${id}`,
       JSON.stringify(brand),

@@ -4,6 +4,7 @@
       class="w-full p-5 search-input"
       type="text"
       [placeholder]="placeholder"
+      (keyup)="searchResults($event)"
     />
     <button class="search-button">
       <div style="width: 1.5rem" class="search-icon">

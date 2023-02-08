@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Brand } from 'src/app/models/brand';
 
 @Component({
   selector: 'app-filter-sidebar-item',
@@ -8,6 +9,8 @@ import { Component, Input } from '@angular/core';
 export class FilterSidebarItemComponent {
   public hiddenAccordion: boolean = true;
   @Input() name: string | undefined;
+  @Input() brands: Brand[] | undefined;
+  @Input() brandsFilter: any;
 
   toggleAccordion() {
     this.hiddenAccordion = !this.hiddenAccordion;
